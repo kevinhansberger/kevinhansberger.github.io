@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Insurance Carrier Filter</title>
+</head>
+<body>
+  <form>
+    <label for="medication">Medication:</label>
+    <select id="medication" multiple>
+      <option value="medication1">Medication 1</option>
+      <option value="medication2">Medication 2</option>
+      <option value="medication3">Medication 3</option>
+    </select>
+
+    <br><br>
+
+    <label>Insurance Carriers:</label><br>
+    <input type="checkbox" name="carrier" value="carrier1" checked>Carrier 1<br>
+    <input type="checkbox" name="carrier" value="carrier2" checked>Carrier 2<br>
+    <input type="checkbox" name="carrier" value="carrier3" checked>Carrier 3<br>
+    <input type="checkbox" name="carrier" value="carrier4" checked>Carrier 4<br>
+    <input type="checkbox" name="carrier" value="carrier5" checked>Carrier 5<br>
+
+    <br><br>
+
+    <input type="button" value="Filter Carriers" onclick="filterCarriers()">
+  </form>
+
+  <script>
+    function filterCarriers() {
+      const medications = Array.from(document.getElementById('medication').selectedOptions).map(option => option.value);
+      const carriers = document.getElementsByName('carrier');
+
+      for (let i = 0; i < carriers.length; i++) {
+        if (shouldHideCarrier(carriers[i].value, medications)) {
+          carriers[i].parentNode.style.display = 'none';
+        } else {
+          carriers[i].parentNode.style.display = '';
+        }
+      }
+    }
+
+    function shouldHideCarrier(carrier, medications) {
+      // Replace this with your own logic for determining if a carrier should be hidden based on the selected medications.
+      // For this example, we will hide Carrier 1 if Medication 1 or Medication 3 is selected.
+      if ((medications.includes('medication1') || medications.includes('medication3')) && carrier === 'carrier1') {
+        return true;
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
